@@ -9,12 +9,12 @@ module.exports = function(app) {
         next();
     });
     app.post(
-        "/api/auth/signup",
+        "/user/signup",
         [
             verifySignUp.checkDuplicateUsername,
             verifySignUp.checkRolesExisted
         ],
         controller.signup
     );
-    app.post("/api/auth/signin", controller.signin);
+    app.post("/user/signin", controller.signin);
 };

@@ -29,7 +29,8 @@ db.mongoose
     })
 
 require("./app/routes/auth.routes");
-require("./app/routes/user.routes")
+require("./app/routes/user.routes");
+require("./app/routes/product.routes");
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
