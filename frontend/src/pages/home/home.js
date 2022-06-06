@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import UserService from "../../services/user.service"
 import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
+import CardComponent from "../../components/card/card-component";
 
 const Home = () => {
   const [dataProducts, setDataProducts] = useState([]);
@@ -36,11 +37,11 @@ const Home = () => {
                             to={`/detail-product/${product.id}`}
                             className="text-decoration-none"
                         >
-                            {/* <CardComponent
+                            <CardComponent
                                 title={product.name}
                                 price={product.price}
                                 image={product.image}
-                            /> */}
+                            />
                         </Link>
                     ))}
                 </div>

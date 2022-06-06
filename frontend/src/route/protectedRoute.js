@@ -5,7 +5,7 @@ import { Outlet, Navigate } from "react-router-dom";
 const ProtectedRoute = () => {
     const isLogin = Cookies.get("token");
 
-    return isLogin ? <Outlet /> : <Navigate to="/auth/login" />;
+    return isLogin ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
