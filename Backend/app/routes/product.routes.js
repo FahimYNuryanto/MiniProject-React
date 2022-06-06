@@ -9,8 +9,9 @@ module.exports = function(app) {
         );
         next();
     })
-    router.post('/products/create', [authJwt.verifyToken], product.create)
+    router.post('/products/create', [authJwt.verifyToken, authJwt.isAdmin], product.create)
     router.get('/products', product.findAll)
-    router.put('/products/:id', [authJwt.verifyToken], product.update)
-    router.delete('/products/:id', [authJwt.verifyToken], product.delete)
+    router.get('/products/:id', product.findOne)
+    router.put('/products/:id', [authJwt.verifyToken, authJwt.isAdmin], product.update)
+    router.delete('/products/:id', [authJwt.verifyToken, authJwt.isAdmin], product.delete)
 }
