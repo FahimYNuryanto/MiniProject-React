@@ -85,11 +85,11 @@ exports.signin = (req, res) => {
         for (let i = 0; i < user.roles.length; i++) {
             authorities.push("ROLE_" + user.roles[i].name.toUpperCase())
         }
+        req.session.token = token;
         res.status(200).send({
             id: user._id,
             username: req.body.username,
-            roles: authorities,
-            accessToken: token
+            roles: authorities
         });
     });
 };

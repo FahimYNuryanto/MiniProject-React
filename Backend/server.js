@@ -1,15 +1,22 @@
 const express = require('express');
 const cors = require('cors');
+const path = __dirname + '/app/views/'
 const app = express();
+const cookieSession = require('cookie-session');
+app.use(express.static(path))
 var corsOptions = {
     origin: "http://localhost:8081"
 };
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get("/", (req, res) => {
-    res.json({ message: "Test"})
-})
+app.use(
+    cookieSession({
+        name: "login-session",
+        secret: "COOKIE_SECRET",
+        httpOnly: true
+    })
+)
 
 const db = require("./app/models");
 const Role = db.role;
@@ -27,7 +34,9 @@ db.mongoose
         console.error("Connection error", err);
         process.exit();
     })
-
+app.get('/', function (req, res) {
+    res.sendFile(path + "index.html");
+})
 require("./app/routes/auth.routes");
 require("./app/routes/user.routes");
 require("./app/routes/product.routes");
