@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap'
-import './assets/styles/index.css';
+import './assets/styles/index.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/header/header';
 import { Routes, Route } from "react-router-dom"
@@ -12,7 +12,7 @@ import ProtectedRoute from "./route/protectedRoute"
 
 function App() {
   return (
-    <div>
+    <div className="BG text-white">
       <Header></Header>
       <Container className="mt-5">
       <Routes>

@@ -1,8 +1,12 @@
 import React from 'react'
 import { Navbar, Container, Nav, Form, Button, FormControl } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import Cookies from "js-cookie"
+import { useNavigate } from "react-router-dom"
 
 const Header = () => {
+  const isLogin = Cookies.get("token");
+  const navigate = useNavigate();
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
   <Container fluid>
@@ -14,10 +18,30 @@ const Header = () => {
         style={{ maxHeight: '100px' }}
         navbarScroll
       >
-        <Nav.Link as={Link} to="/dashboard-admin">Dashboard Admin</Nav.Link>
-        <Nav.Link as={Link} to="/login">Login</Nav.Link>
-        <Nav.Link as={Link} to="/register">Register</Nav.Link>
+        {isLogin ? (
+           <>
+           <Nav.Link as={Link} to="/dashboard-admin">
+               Dashboard Admin
+           </Nav.Link>
+           <Nav.Link as={Link} to="/register">
+               Register
+           </Nav.Link>
+           <Nav.Link
+               onClick={() => {
+                   Cookies.remove("token");
+                   navigate("/login");
+               }}
+           >
+               Logout
+           </Nav.Link>
+       </>
+        )   : (
+          <Nav.Link as={Link} to="/login">
+            Login
+          </Nav.Link>
+        )}
       </Nav>
+
       <Form className="d-flex">
         <FormControl
           type="search"
