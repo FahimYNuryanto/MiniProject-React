@@ -9,6 +9,7 @@ import Login from './pages/login/login'
 import Register from './pages/register/register'
 import DetailProduct from './pages/detail-product/detail-product'
 import ProtectedRoute from "./route/protectedRoute"
+import Footer from "./components/footer/footer"
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         
       </Routes>
       </Container>
+      <Footer></Footer>
     </div>
   );
 }
