@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ProtectedComponent from "../../layout/protected-component";
+// import ProtectedComponent from "../../layout/protected-component";
 import { Table, Button } from "react-bootstrap";
 import UserService from "../../services/user.service"
 import ReactLoading from "react-loading";
