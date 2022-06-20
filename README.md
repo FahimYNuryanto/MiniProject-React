@@ -10,7 +10,7 @@ Due to some circumstances, i couldnt maximize the react app. I am really sorry.
 - MongoDB
 - Mongoose
 - express
-- bcryptjs
+- bcrypt
 - cors
 - jwt
 # Addons
