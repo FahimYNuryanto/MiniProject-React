@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {Form, Button } from "react-bootstrap";
 import AuthService from "../../services/auth.services"
-import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom" 
 
 const Login = () => {
@@ -12,9 +11,8 @@ const Login = () => {
 
   const submitLogin = async (e) => {
     e.preventDefault();
-    await AuthService.Login(name, password)
+    await AuthService(Login)(name, password)
         .then((response) => {
-          Cookies.set("token", response.data.access_token);
           navigate("/dashboard-admin");
         })
         .catch((error) => console.log(error));

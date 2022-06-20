@@ -1,63 +1,24 @@
-const express = require('express');
-const cors = require('cors');
-const path = __dirname + '/app/views/'
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import cors from "cors"
+
+import accountRoutes from './routes/accounts.js'
+import productsRoutes from './routes/products.js'
+
 const app = express();
-const cookieSession = require('cookie-session');
-app.use(express.static(path))
-var corsOptions = {
-    origin: "http://localhost:8081"
-};
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(
-    cookieSession({
-        name: "login-session",
-        secret: "COOKIE_SECRET",
-        httpOnly: true
-    })
-)
 
-const db = require("./app/models");
-const Role = db.role;
-const dbConfig = require("./app/config/db.config")
-db.mongoose
-    .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}` , {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log("Succesfully connected to MongoDB.");
-        initial()
-    })
-    .catch(err => {
-        console.error("Connection error", err);
-        process.exit();
-    })
-app.get('/', function (req, res) {
-    res.sendFile(path + "index.html");
-})
-require("./app/routes/auth.routes");
-require("./app/routes/user.routes");
-require("./app/routes/product.routes");
 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({ extended: true }))
+app.use(cors())
+
+app.use('/account', accountRoutes)
+app.use('/product', productsRoutes)
+
+const CONNECTION_URL = "mongodb://localhost:27017";
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running at ${PORT}`);
-});
 
-
-function initial() {
-    Role.estimatedDocumentCount((err, count) => {
-        if (!err && count === 0) {
-            new Role({
-                name: 'admin'
-            }).save(err => {
-                if (err) {
-                    console.log("error", err);
-                }
-                console.log("added 'admin' to roles")
-            });
-        }
-    });
-}
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => app.listen(PORT, () => console.log(` Server is running on ${PORT}`)))
+    .catch((error) => console.log(error.message));
